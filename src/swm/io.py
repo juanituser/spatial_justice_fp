@@ -3,14 +3,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def load_database(filename="data.geojson"):
+def load_geodata(filename, folder="data/", reproject_to=None):
     
-    logger.info("---- loading {} ----".format(filename))
+    logger.info(f"---- loading {filename} ----")
 
-    polygons = gpd.read_file("data/"+filename)
-
-    logger.info("---- adjusting projection ----")
-
-    polygons = polygons.to_crs(epsg=25832)
-
-    return polygons
+    gdf = gpd.read_file(folder + filename)
+    
+    if reproject_to:
+        logger.info(f"---- reprojecting to EPSG:{reproject_to} ----")
+        gdf = gdf.to_crs(epsg=reproject_to)
+    
+    return gdf
