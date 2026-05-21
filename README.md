@@ -8,18 +8,18 @@ Access to higher education in Bogotá is not spatially equitable. Higher educati
 
 ### 2. Planned analisys
 
-**Phase 1 - Physical Proximity:** Build a Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
+- **Phase 1 - Physical Proximity:** Build a Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
 
-**Phase 2 - Socioeconomic Capacity:** Incorporate average household income as an explanatory variable and see how this spatial inequality is reinforced by the socioeconomic conditions of the population.
+- **Phase 2 - Socioeconomic Capacity:** Incorporate average household income as an explanatory variable and see how this spatial inequality is reinforced by the socioeconomic conditions of the population.
 
 ### 3. How is Justice being assessed?
 This analysis seeks to highlight this dual dimension of spatial injustice involving the physical and the socioeconomic factors.
 
 ## Data sources
 
-- [Secretaría Distrital de Planeación](https://sdp.gov.co/gestion-estudios-estrategicos/informacion-estadisticas/encuesta-multiproposito): Socioeconomic and demographic variables.
-- [Mapas Bogotá](https://mapas.bogota.gov.co/#): Boundaries.
-- [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/): Education.
+- Socioeconomic and demographic variables: [Secretaría Distrital de Planeación](https://sdp.gov.co/gestion-estudios-estrategicos/informacion-estadisticas/encuesta-multiproposito)
+- Boundaries: [Mapas Bogotá](https://mapas.bogota.gov.co/#)
+- Education: [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/)
 
 ## Data loading and preprocessing
 
