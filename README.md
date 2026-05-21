@@ -1,27 +1,29 @@
-# README
+# Accessibility to higher education level
 
 ## Overview
 
-1. Problem framming
+### 1. Problem framming
 
 Access to higher education in Bogotá is not spatially equitable. Higher education institutions are concentrated in the central and north areas of the city, resulting in an unequal distribution of educational opportunities across the territory. This spatial inequality is reinforced by the socioeconomic conditions of the population, with areas with lower income tending to be further from educational offerings. This analysis seeks to highlight this dual dimension of spatial injustice: the physical and the socioeconomic.
 
-1. Planned analisys
+### 2. Planned analisys
 
-**Phase 1 - Physical Proximity:** Build a Simple Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
+**Phase 1 - Physical Proximity:** Build a Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
 
 **Phase 2 - Socioeconomic Capacity:** Incorporate average household income as an explanatory variable and see how this spatial inequality is reinforced by the socioeconomic conditions of the population.
 
-3. How is Justice being assessed?
+### 3. How is Justice being assessed?
 This analysis seeks to highlight this dual dimension of spatial injustice involving the physical and the socioeconomic factors.
 
+## Data sources
 
-## Data Organization & Cleaning Process
+- [Secretaría Distrital de Planeación](https://sdp.gov.co/gestion-estudios-estrategicos/informacion-estadisticas/encuesta-multiproposito): Socioeconomic and demographic variables.
+- [Mapas Bogotá](https://mapas.bogota.gov.co/#): Boundaries.
+- [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/): Education.
 
-This section describes the steps taken to load, organize, and consolidate multiple CSV data sources into a single unified dataframe (`upl`) for analysis.
+## Data loading and preprocessing
 
----
-### 0. Getting data
+### 0. Raw data
 
 The source CSV files were obtained from the Encuesta Multipropósito, conducted jointly by DANE (Departamento Administrativo Nacional de Estadística) and the Secretaría Distrital de Planeación of Bogotá D.C. The survey is published as a large Excel workbook containing a wide range of socioeconomic and demographic variables at the UPL (Unidad de Planeamiento Local) level. From this workbook, a selection of variables considered relevant for an accessibility to education analysis were identified and exported individually as CSV files, each prefixed with em to indicate their origin from the Encuesta Multipropósito.
 
@@ -57,11 +59,10 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 | `personas_segun_si_saben_leer_y_escribir` | `PORCENTAJE_NO` | `personas_segun_si_saben_leer_y_escribir_porcentaje_no`          |
 | `nivel_educativo` | `PORCENTAJE_TECNICO` | `nivel_educativo_porcentaje_tecnico` |
 | `nivel_educativo` | `PORCENTAJE_TECNOLOGO` | `nivel_educativo_porcentaje_tecnologo` |
-| `nivel_educativo` | `PORCENTAJE_UNIVERSITARIO_INCOMPLETO` | n`ivel_educativo_porcentaje_universitario_incompleto` |
+| `nivel_educativo` | `PORCENTAJE_UNIVERSITARIO_INCOMPLETO` | `nivel_educativo_porcentaje_universitario_incompleto` |
 | `nivel_educativo` | `PORCENTAJE_UNIVERSITARIO_COMPLETO` | `nivel_educativo_porcentaje_universitario_completo` |
 
 ---
-
 ### 3. Join Strategy
 
 - **Type:** Left join — all rows from `upl` are preserved.
@@ -74,3 +75,7 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 
 - All merged column names are lowercased to ensure consistency.
 - Source files must include a `CODIGO_UPL` column to be mergeable.
+
+
+## Licencia
+This project is under [MIT](./LICENCE.md).
