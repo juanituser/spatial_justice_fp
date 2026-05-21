@@ -3,8 +3,17 @@
 ## Overview
 
 1. Problem framming
-2. Planned analisys.
+
+Access to higher education in Bogotá is not spatially equitable. Higher education institutions are concentrated in the central and north areas of the city, resulting in an unequal distribution of educational opportunities across the territory. This spatial inequality is reinforced by the socioeconomic conditions of the population, with areas with lower income tending to be further from educational offerings. This analysis seeks to highlight this dual dimension of spatial injustice: the physical and the socioeconomic.
+
+1. Planned analisys
+
+**Phase 1 - Physical Proximity:** Build a Simple Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
+
+**Phase 2 - Socioeconomic Capacity:** Incorporate average household income as an explanatory variable and see how this spatial inequality is reinforced by the socioeconomic conditions of the population.
+
 3. How is Justice being assessed?
+This analysis seeks to highlight this dual dimension of spatial injustice involving the physical and the socioeconomic factors.
 
 
 ## Data Organization & Cleaning Process
