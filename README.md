@@ -35,25 +35,30 @@ All CSV files are loaded dynamically from a local folder and each of them is rea
 
 ### 2. Merging into the `upl` Dataframe
 
-A selection of columns from each source dataframe is merged into the main `upl` geodataframe using `CODIGO_UPL` as the join key (left join).
+A selection of columns from each source dataframe is merged into the main `upl` geodataframe using `CODIGO_UPL` as the join key (left join). Initially, several columns have been added even if now are not used (available to do future analysis)
 
-Only the relevant columns are brought in from each source. When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are automatically renamed to `{df_name}_{column_name}` in lowercase to avoid conflicts.
+When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are automatically renamed to `{df_name}_{column_name}` in lowercase to avoid conflicts.
 
 #### Resulting Column Names
 
 | Source Dataframe                    | Original Column    | Renamed To                                        |
 |-------------------------------------|--------------------|---------------------------------------------------|
-| `ingreso_por_hogar`                 | `PROMEDIO`         | `ingreso_por_hogar_promedio`                      |
-| `promedio_edad`                     | `PROMEDIO`         | `promedio_edad_promedio`                          |
-| `promedio_personas_hogar`           | `PROMEDIO`         | `promedio_personas_hogar_promedio`                |
-| `minutos_al_estudio`                | `PROMEDIO`         | `minutos_al_estudio_promedio`                     |
-| `minutos_al_trabajo`                | `PROMEDIO`         | `minutos_al_trabajo_promedio`                     |
-| `satisfaccion_con_barrio_comunidad` | `PROMEDIO`         | `satisfaccion_con_barrio_comunidad_promedio`      |
-| `satisfaccion_con_ingresos`         | `PROMEDIO`         | `satisfaccion_con_ingresos_promedio`              |
-| `satisfaccion_con_la_vida`          | `PROMEDIO`         | `satisfaccion_con_la_vida_promedio`               |
-| `personas_segun_sexo`               | `TOTAL_HOMBRE`     | `personas_segun_sexo_total_hombre`                |
-| `personas_segun_sexo`               | `TOTAL_MUJER`      | `personas_segun_sexo_total_mujer`                 |
-| `personas_segun_sexo`               | `TOTAL_INTERSEXUAL`| `personas_segun_sexo_total_intersexual`           |
+| `ingreso_por_hogar`                    |`PROMEDIO`       | `ingreso_por_hogar_promedio  `                    |
+| `promedio_edad`                        |`PROMEDIO`       | `promedio_edad_promedio`                          |
+| `promedio_personas_hogar`              |`PROMEDIO`       | `promedio_personas_hogar_promedio`               |
+| `minutos_al_estudio`                     | `PROMEDIO`         | `minutos_al_estudio_promedio`                     |
+| `minutos_al_trabajo`                     | `PROMEDIO`         | `minutos_al_trabajo_promedio`                     |
+| `personas_segun_sexo`                    | `PORCENTAJE_HOMBRE`     | `personas_segun_sexo_porcentaje_hombre`                |
+| `personas_segun_sexo`                    | `PORCENTAJE_MUJER`      | `personas_segun_sexo_porcentaje_mujer`                 |
+| `personas_segun_sexo`                    | `PORCENTAJE_INTERSEXUAL`| `personas_segun_sexo_porcentaje_intersexual`           |
+| `personas_segun_si_actualmente_estudian` | `PORCENTAJE_SI` | `personas_segun_si_actualmente_estudian_porcentaje_si`           |
+| `personas_segun_si_actualmente_estudian` | `PORCENTAJE_NO` | `personas_segun_si_actualmente_estudian_porcentaje_no`           |
+| `personas_segun_si_saben_leer_y_escribir` | `PORCENTAJE_SI` | `personas_segun_si_saben_leer_y_escribir_porcentaje_si`           |
+| `personas_segun_si_saben_leer_y_escribir` | `PORCENTAJE_NO` | `personas_segun_si_saben_leer_y_escribir_porcentaje_no`          |
+| `nivel_educativo` | `PORCENTAJE_TECNICO` | `nivel_educativo_porcentaje_tecnico` |
+| `nivel_educativo` | `PORCENTAJE_TECNOLOGO` | `nivel_educativo_porcentaje_tecnologo` |
+| `nivel_educativo` | `PORCENTAJE_UNIVERSITARIO_INCOMPLETO` | n`ivel_educativo_porcentaje_universitario_incompleto` |
+| `nivel_educativo` | `PORCENTAJE_UNIVERSITARIO_COMPLETO` | `nivel_educativo_porcentaje_universitario_completo` |
 
 ---
 
