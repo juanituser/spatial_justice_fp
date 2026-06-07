@@ -1,8 +1,9 @@
 import logging
 import sys
 import typer
-# import matplotlib.pyplot as plt
 from swm.io import load_geodata
+from swm.analysis import count_ies_in_polygons
+from swm.viz import plot_choropleth
 from swm.weights import create_rook_swm, create_queen_swm
 
 
@@ -44,9 +45,13 @@ def main(
     hei = load_geodata(points_file, reproject_to=reproject_to) 
     logger.info(f"Loaded: {hei.shape[0]} features")
 
+    districts = count_ies_in_polygons(polygons, hei)
+
     # --- Build all W matrices ---
     rook_w = create_rook_swm(polygons)
     queen_w = create_queen_swm(polygons)
+
+    plot_choropleth(districts, column="points_count", title="IES por UPL")
 
 
 if __name__ == "__main__":
