@@ -17,7 +17,7 @@ def main():
     
     gdf = load_geodata("upl.geojson")
     logger.info(f"Loaded: {gdf.shape[0]} features")
-    
+    print(list(gdf))
     hei = load_geodata("ies.geojson") ## high education institution
     logger.info(f"Loaded: {hei.shape[0]} features")
     
