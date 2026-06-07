@@ -1,5 +1,6 @@
 import logging
 import sys
+import typer
 import matplotlib.pyplot as plt
 from swm.io import load_geodata
 
@@ -12,15 +13,36 @@ logging.basicConfig(
     handlers=[logging.StreamHandler(sys.stdout)],
 )
 
-def main():
+app = typer.Typer()
+
+@app.command()
+def main(
+    polygons_file: str = typer.Option(
+        "upl.geojson",
+        "--polygons",
+        "-p",
+        help="GeoJSON filename for the polygons (e.g. District or neighbors boundaries).",
+    ),
+    points_file: str = typer.Option(
+        "ies.geojson",
+        "--points",
+        "-pt",
+        help="GeoJSON filename for the points (e.g. Higher Education Institutions).",
+    ),
+    reproject_to: int = typer.Option(
+        "3116",
+        "--reproject-to",
+        "-r",
+        help="EPSG code to reproject both layers.",
+    )
+):
     logger.info("SWM Explorer. Starting Execution")
     
-    gdf = load_geodata("upl.geojson")
+    gdf = load_geodata(polygons_file, reproject_to=reproject_to)
     logger.info(f"Loaded: {gdf.shape[0]} features")
-    print(list(gdf))
-    hei = load_geodata("ies.geojson") ## high education institution
+    hei = load_geodata(points_file, reproject_to=reproject_to) 
     logger.info(f"Loaded: {hei.shape[0]} features")
     
 
 if __name__ == "__main__":
-    main()
+    app()

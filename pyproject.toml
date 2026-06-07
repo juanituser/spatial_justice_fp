@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-fp = "swm.main:main"
+fp = "swm.main:app"
 
 [build-system]
 requires = ["hatchling"]
