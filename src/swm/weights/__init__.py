@@ -1,0 +1,1 @@
+from .contiguity import create_queen_swm, create_rook_swm

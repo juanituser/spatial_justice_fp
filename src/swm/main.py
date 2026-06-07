@@ -1,8 +1,9 @@
 import logging
 import sys
 import typer
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from swm.io import load_geodata
+from swm.weights import create_rook_swm, create_queen_swm
 
 
 logger = logging.getLogger(__name__)
@@ -18,7 +19,7 @@ app = typer.Typer()
 @app.command()
 def main(
     polygons_file: str = typer.Option(
-        "upl.geojson",
+        "data.geojson",
         "--polygons",
         "-p",
         help="GeoJSON filename for the polygons (e.g. District or neighbors boundaries).",
@@ -38,11 +39,15 @@ def main(
 ):
     logger.info("SWM Explorer. Starting Execution")
     
-    gdf = load_geodata(polygons_file, reproject_to=reproject_to)
-    logger.info(f"Loaded: {gdf.shape[0]} features")
+    polygons = load_geodata(polygons_file, reproject_to=reproject_to)
+    logger.info(f"Loaded: {polygons.shape[0]} features")
     hei = load_geodata(points_file, reproject_to=reproject_to) 
     logger.info(f"Loaded: {hei.shape[0]} features")
-    
+
+    # --- Build all W matrices ---
+    rook_w = create_rook_swm(polygons)
+    queen_w = create_queen_swm(polygons)
+
 
 if __name__ == "__main__":
     app()
