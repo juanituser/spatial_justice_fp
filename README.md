@@ -4,22 +4,31 @@
 
 ### 1. Problem framming
 
-Access to higher education in Bogotá is not spatially equitable. Higher education institutions are concentrated in the central and north areas of the city, resulting in an unequal distribution of educational opportunities across the territory. This spatial inequality is reinforced by the socioeconomic conditions of the population, with areas with lower income tending to be further from educational offerings. This analysis seeks to highlight this dual dimension of spatial injustice: the physical and the socioeconomic.
+Access to higher education in Bogotá is not spatially equitable. Higher Education Institutions (HEIs) are concentrated in the central and northern areas of the city, resulting in an unequal distribution of educational opportunities across the territory. This spatial inequality is further reinforced by the socioeconomic conditions of the population: Districts with lower income tend to be located further from educational offerings, and subjective factors such as life satisfaction and perception of the neighborhood may compound the difficulty of accessing higher education.
 
-### 2. Planned analisys
+This analysis proposes that physical distance alone is insufficient to measure accessibility. A district may be 2km away from a HEI, but that distance is effectively greater when mediated by low income, dissatisfaction with life, or a weak sense of belonging to the community. The goal is to build a composite accessibility indicator that reflects both the spatial and the human dimensions of this inequality.
 
-- **Phase 1 - Physical Proximity:** Build a Spatial Weights Matrix to measure connectivity between UPLs and HEIs.
+### 2. Planned Analysis
 
-- **Phase 2 - Socioeconomic Capacity:** Incorporate average household income as an explanatory variable and see how this spatial inequality is reinforced by the socioeconomic conditions of the population.
+- **Phase 1 — Physical Proximity:** Calculate the number of HEIs within each district and the distance to the nearest HEI as a baseline physical accessibility variable. This represents the raw, unadjusted measure of spatial access.
+
+- **Phase 2 — Socioeconomic Weighting:** Adjust the physical accessibility measure by incorporating average household income as a penalization factor. District with lower income will have their effective accessibility reduced, reflecting the real economic barriers that condition access to higher education beyond mere physical distance.
+
+- **Phase 3 — Subjective Perception Weighting:** Further adjust the accessibility indicator by incorporating three satisfaction variables — satisfaction with neighborhood/community, satisfaction with income, and satisfaction with life in general. These variables capture how people's subjective experience of their environment may amplify the difficulty of accessing higher education, even when physical distance is moderate.
+
+- **Phase 4 — Spatial Autocorrelation:** Build a Spatial Weights Matrix (Rook and Queen contiguity) and apply Moran's I to test whether districts with low composite accessibility cluster spatially. This clustering would constitute the core evidence of spatial injustice in the distribution of higher education access across Bogotá.
 
 ### 3. How is Justice being assessed?
-This analysis seeks to highlight this dual dimension of spatial injustice involving the physical and the socioeconomic factors.
+
+Justice is assessed from a **distributive** perspective: are educational resources (HEIs) equitably distributed across the territory? And from a **social** perspective: do populations with lower socioeconomic capacity and lower life satisfaction face compounded barriers to accessing higher education?
+
+The composite accessibility indicator built in this analysis allows for identifying which UPLs face the greatest structural disadvantage — not only because they are physically distant from HEIs, but because that distance is amplified by economic and subjective factors.
 
 ## Data sources
 
 - Socioeconomic and demographic variables: [Secretaría Distrital de Planeación](https://sdp.gov.co/gestion-estudios-estrategicos/informacion-estadisticas/encuesta-multiproposito)
 - Boundaries: [Mapas Bogotá](https://mapas.bogota.gov.co/#)
-- Education: [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/)
+- Education Institutions: [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/)
 
 ## Data loading and preprocessing
 
