@@ -2,11 +2,9 @@ import logging
 import sys
 import typer
 from swm.io import load_geodata
-from swm.analysis import count_ies_in_polygons
+from swm.analysis import count_ies_in_polygons, get_centroids
 from swm.viz import plot_choropleth
 from swm.network import get_bbox_wgs84
-
-
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +37,7 @@ def main(
         help="EPSG code to reproject both layers.",
     )
 ):
-    logger.info("SWM Explorer. Starting Execution")
+    logger.info("Accessibility Explorer. Starting Execution")
     
     polygons = load_geodata(polygons_file, reproject_to=reproject_to)
     logger.info(f"Loaded: {polygons.shape[0]} features")
@@ -52,9 +50,12 @@ def main(
 
     ##Analysis
     
-    # --- Build all W matrices ---
-    get_bbox_wgs84(polygons)
+    # --- Get the bbox of the polygons---
+    bbox = get_bbox_wgs84(polygons)
 
+    # --- Get the centroids of the polygons---
+    centroids = get_centroids(polygons)
+    logger.info(f"Calculated: {centroids.shape[0]} centroids")
 
 if __name__ == "__main__":
     app()

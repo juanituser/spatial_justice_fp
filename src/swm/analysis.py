@@ -1,7 +1,7 @@
 import geopandas as gpd
+
 def count_ies_in_polygons(polygons, points):
     
-
     points_inside_polygons = gpd.sjoin(polygons, points)
 
     points_count = points_inside_polygons.groupby("CODIGO_UPL").size().reset_index(name="points_count")
@@ -10,3 +10,7 @@ def count_ies_in_polygons(polygons, points):
     polygons["points_count"] = polygons["points_count"].fillna(0)
 
     return polygons
+
+def get_centroids(polygons):
+    centroid = polygons.geometry.centroid
+    return centroid
