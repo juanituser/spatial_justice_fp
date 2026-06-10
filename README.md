@@ -16,8 +16,6 @@ This analysis proposes that physical distance alone is insufficient to measure a
 
 - **Phase 3 — Subjective Perception Weighting:** Further adjust the accessibility indicator by incorporating three satisfaction variables — satisfaction with neighborhood/community, satisfaction with income, and satisfaction with life in general. These variables capture how people's subjective experience of their environment may amplify the difficulty of accessing higher education, even when physical distance is moderate.
 
-- **Phase 4 — Spatial Autocorrelation:** Build a Spatial Weights Matrix (Rook and Queen contiguity) and apply Moran's I to test whether districts with low composite accessibility cluster spatially. This clustering would constitute the core evidence of spatial injustice in the distribution of higher education access across Bogotá.
-
 ### 3. How is Justice being assessed?
 
 Justice is assessed from a **distributive** perspective: are educational resources (HEIs) equitably distributed across the territory? And from a **social** perspective: do populations with lower socioeconomic capacity and lower life satisfaction face compounded barriers to accessing higher education?

@@ -4,7 +4,8 @@ import typer
 from swm.io import load_geodata
 from swm.analysis import count_ies_in_polygons
 from swm.viz import plot_choropleth
-from swm.weights import create_rook_swm, create_queen_swm
+from swm.network import get_bbox_wgs84
+
 
 
 logger = logging.getLogger(__name__)
@@ -45,13 +46,14 @@ def main(
     hei = load_geodata(points_file, reproject_to=reproject_to) 
     logger.info(f"Loaded: {hei.shape[0]} features")
 
-    districts = count_ies_in_polygons(polygons, hei)
+    # districts = count_ies_in_polygons(polygons, hei)
 
+    # plot_choropleth(districts, column="points_count", title="IES por UPL")
+
+    ##Analysis
+    
     # --- Build all W matrices ---
-    rook_w = create_rook_swm(polygons)
-    queen_w = create_queen_swm(polygons)
-
-    plot_choropleth(districts, column="points_count", title="IES por UPL")
+    get_bbox_wgs84(polygons)
 
 
 if __name__ == "__main__":
