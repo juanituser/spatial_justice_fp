@@ -1,7 +1,22 @@
 import logging
 import geopandas as gpd
 
+
 logger = logging.getLogger(__name__)
+
+def get_centroids(polygons):
+    """
+    Calculate the centroid of the polygons inserted and returns a gdf with the points.
+
+    Args:
+        polygons: GeoDataFrame in any CRS with subdivisions of a region
+
+    Returns:
+        centroids: GeoDataFrame in the same CRS as inserted with the points of the centroids.
+    """
+
+    centroids = polygons.geometry.centroid
+    return centroids
 
 def get_bbox_wgs84(gdf: gpd.GeoDataFrame):
     """
@@ -22,6 +37,6 @@ def get_bbox_wgs84(gdf: gpd.GeoDataFrame):
     gdf_wgs84 = gdf.to_crs(epsg=4326)
 
     west, south, east, north = gdf_wgs84.total_bounds
-    print(f"Bounding box - W: {west:.4f} S: {south:.4f} E: {east:.4f} N: {north:.4f}")
     
     return west, south, east, north
+
