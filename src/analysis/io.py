@@ -11,6 +11,11 @@ def load_geodata(filename, folder="data/", reproject_to=None):
     
     if gdf.crs != reproject_to:
         logger.info(f"---- reprojecting to EPSG:{reproject_to} ----")
-        gdf = gdf.to_crs(epsg=3116)
+        gdf = gdf.to_crs(epsg=reproject_to)
+
+    if gdf.geometry.isnull().sum() != 0:
+        logger.info(f"---- Deleting {gdf.geometry.isnull().sum()} rows with empty geometry ----")
+        gdf = gdf[gdf.geometry.notnull()]
+        gdf = gdf[~gdf.geometry.is_empty]
     
     return gdf
