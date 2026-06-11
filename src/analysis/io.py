@@ -18,4 +18,9 @@ def load_geodata(filename, folder="data/", reproject_to=None):
         gdf = gdf[gdf.geometry.notnull()]
         gdf = gdf[~gdf.geometry.is_empty]
     
+    if not gdf.geometry.is_valid.all():
+        invalid_count = (~gdf.geometry.is_valid).sum()
+        logger.warning(f"---- Found {invalid_count} invalid geometries, attempting to fix ----")
+        gdf.geometry = gdf.geometry.buffer(0)
+
     return gdf
