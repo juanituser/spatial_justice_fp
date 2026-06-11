@@ -36,6 +36,27 @@ The composite accessibility indicator built in this analysis allows for identify
 - Boundaries: [Mapas Bogotá](https://mapas.bogota.gov.co/#)
 - Education Institutions: [Ministerio de Educacion Nacional ](https://www.mineducacion.gov.co/portal/)
 
+## Project Structure
+
+```
+accessibility-explorer/
+├── data/                          # Input data
+│   ├── data.geojson                # District polygon boundaries
+│   └── ies.geojson                 # Higher Education Institutions points
+├── src/
+│   └── swm/
+│       ├── main.py                # Entry point
+│       ├── io.py                  # Data loading and validation
+│       ├── network.py             # Street network download and build
+│       ├── analysis/
+│       │   ├── pois.py            # POI registration
+│       │   └── accessibility.py   # Accessibility computation
+│       └── viz.py                 # Visualization
+├── pyproject.toml                 # Dependencies and project config
+├── README.md                      
+└── LICENSE
+```
+
 ## Data loading and preprocessing
 
 ### 0. Raw data
@@ -64,7 +85,6 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 | `edad`                        |`PROMEDIO`       | `edad_promedio`                          |
 |`personas_hogar` | `PROMEDIO`|`personas_hogar_promedio`|
 |`satisfaccion_con_barrio_comunidad` | `PROMEDIO`|`satisfaccion_con_barrio_comunidad_promedio`|
-|`satisfaccion_con_ingresos` | `PROMEDIO`|`satisfaccion_con_ingresos_promedio`|
 |`satisfaccion_con_la_vida` | `PROMEDIO`|`satisfaccion_con_la_vida_promedio`|
 |`nivel_educativo` | `PORCENTAJE_TECNICO`|`nivel_educativo_porcentaje_tecnico`|
 |`nivel_educativo` | `PORCENTAJE_TECNOLOGO`|`nivel_educativo_porcentaje_tecnologo`|
