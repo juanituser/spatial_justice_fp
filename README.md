@@ -18,7 +18,7 @@ This project builds a **composite spatial accessibility index** that combines th
 
 1. **Physical proximity**: Network-based distance from each UPL centroid to the nearest Higher Education Institutions
 2. **Socioeconomic weighting**: Average household income per UPL, which penalizes accessibility for economically disadvantaged areas
-3. **Subjective perception weighting**: Satisfaction with neighborhood, satisfaction with income, and satisfaction with life in general, capturing how people's lived experience of their environment further conditions their ability to access higher education.
+3. **Subjective perception weighting**: Satisfaction with neighborhood and satisfaction with life in general, capturing how people's lived experience of their environment further conditions their ability to access higher education.
 
 The resulting index is mapped across Bogotá's UPLs to reveal which areas face the greatest structural disadvantage in accessing higher education, not only because they are physically distant from HEIs, but because that distance is amplified by economic and subjective factors.
 
@@ -81,9 +81,7 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 
 | Source Dataframe                    | Original Column    | Renamed To                                        |
 |-------------------------------------|--------------------|---------------------------------------------------|
-| `ingreso_por_hogar`                    |`PROMEDIO`       | `ingreso_por_hogar_promedio  `                    |
-| `edad`                        |`PROMEDIO`       | `edad_promedio`                          |
-|`personas_hogar` | `PROMEDIO`|`personas_hogar_promedio`|
+| `ingreso_por_hogar`                    |`PROMEDIO`       | `ingreso_por_hogar_promedio` |                
 |`satisfaccion_con_barrio_comunidad` | `PROMEDIO`|`satisfaccion_con_barrio_comunidad_promedio`|
 |`satisfaccion_con_la_vida` | `PROMEDIO`|`satisfaccion_con_la_vida_promedio`|
 |`nivel_educativo` | `PORCENTAJE_TECNICO`|`nivel_educativo_porcentaje_tecnico`|
