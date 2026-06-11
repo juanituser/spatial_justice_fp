@@ -8,13 +8,21 @@ Access to higher education in Bogotá is not spatially equitable. Higher Educati
 
 This analysis proposes that physical distance alone is insufficient to measure accessibility. A district may be 2km away from a HEI, but that distance is effectively greater when mediated by low income, dissatisfaction with life, or a weak sense of belonging to the community. The goal is to build a composite accessibility indicator that reflects both the spatial and the human dimensions of this inequality.
 
-### 2. Planned Analysis
+### The Inequality Being Assessed
 
-- **Phase 1 — Physical Proximity:** Calculate the number of HEIs within each district and the distance to the nearest HEI as a baseline physical accessibility variable. This represents the raw, unadjusted measure of spatial access.
+This project examines the unequal spatial distribution of access to higher education across urban territories. Using Bogotá's Urban Planning Units (UPLs) as a case study, it assumes that physical distance to Higher Education Institutions (HEIs) is not the only barrier to access: economic and social factors compound the difficulty, making effective accessibility much harder for vulnerable populations.
 
-- **Phase 2 — Socioeconomic Weighting:** Adjust the physical accessibility measure by incorporating average household income as a penalization factor. District with lower income will have their effective accessibility reduced, reflecting the real economic barriers that condition access to higher education beyond mere physical distance.
+### 2. Proposed Solution
 
-- **Phase 3 — Subjective Perception Weighting:** Further adjust the accessibility indicator by incorporating three satisfaction variables — satisfaction with neighborhood/community, satisfaction with income, and satisfaction with life in general. These variables capture how people's subjective experience of their environment may amplify the difficulty of accessing higher education, even when physical distance is moderate.
+This project builds a **composite spatial accessibility index** that combines three dimensions:
+
+1. **Physical proximity**: Network-based distance from each UPL centroid to the nearest Higher Education Institutions
+2. **Socioeconomic weighting**: Average household income per UPL, which penalizes accessibility for economically disadvantaged areas
+3. **Subjective perception weighting**: Satisfaction with neighborhood, satisfaction with income, and satisfaction with life in general, capturing how people's lived experience of their environment further conditions their ability to access higher education.
+
+The resulting index is mapped across Bogotá's UPLs to reveal which areas face the greatest structural disadvantage in accessing higher education, not only because they are physically distant from HEIs, but because that distance is amplified by economic and subjective factors.
+
+The tool is designed to be reusable: **any city or region with polygon boundaries, points of interest, and socioeconomic variables can run the same analysis**. Income, satisfaction with life, satisfaction with neighborhood, or any other relevant variable can be incorporated as weighting factors to build a composite accessibility indicator tailored to the context.
 
 ### 3. How is Justice being assessed?
 
