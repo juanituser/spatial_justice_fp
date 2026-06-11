@@ -4,6 +4,7 @@ import typer
 import time
 from analysis.io import load_geodata
 from analysis.network import get_centroids, get_bbox_wgs84, download_network, build_pandana_network
+from analysis.pois import register_pois
  
 
 logger = logging.getLogger(__name__)
@@ -31,7 +32,7 @@ def main(
         help="GeoJSON filename for the points (e.g. Higher Education Institutions).",
     ),
     reproject_to: int = typer.Option(
-        "3116",
+        3116,
         "--reproject-to",
         "-r",
         help="EPSG code to reproject both layers.",
@@ -42,14 +43,31 @@ def main(
         "-n",
         help="From OSMmnx, the options available are: all, all_public, bike, drive, drive_service, walk.",
     ),
+    max_distance: float = typer.Option(
+        10000,
+        "--max_distance",
+        "-md",
+        help="The maximum distance that will be used to find all the nearest pois"
+    ),
+    max_items: int = typer.Option(
+        10,
+        "--max_items",
+        "-mi",
+        help="The maximum number of items that will be found"
+    )
 ):
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
 
     polygons = load_geodata(polygons_file, reproject_to=reproject_to)
     logger.info(f"Loaded: {polygons.shape[0]} features")
-    hei = load_geodata(points_file, reproject_to=reproject_to) 
-    logger.info(f"Loaded: {hei.shape[0]} features")
+    pois = load_geodata(points_file, reproject_to=4326) 
+    logger.info(f"Loaded: {pois.shape[0]} features")
+
+    print(polygons.crs)          
+    print(polygons.shape)       
+    print(pois.crs)                 
+    print(pois.shape)    
 
     # -------------------------------------------------------------------------- 
     # --- Get the distance from the centroids to the nearest 10 institutions ---
@@ -66,7 +84,9 @@ def main(
     graph   = download_network(bbox, network_type=network_type)
     # --- Building the network using the graph ---
     network = build_pandana_network(graph)
-    
+    # --- Register pois in the network ---
+    register_pois(network, pois, max_distance=max_distance, max_items=max_items)
+    print(network.nodes_df.head())
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")
