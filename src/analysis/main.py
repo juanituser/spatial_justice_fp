@@ -22,7 +22,7 @@ def main(
     polygons_file: str = typer.Option(
         "data.geojson",
         "--polygons",
-        "-p",
+        "-pl",
         help="GeoJSON filename for the polygons (e.g. District or neighbors boundaries).",
     ),
     points_file: str = typer.Option(
@@ -30,12 +30,6 @@ def main(
         "--points",
         "-pt",
         help="GeoJSON filename for the points (e.g. Higher Education Institutions).",
-    ),
-    reproject_to: int = typer.Option(
-        3116,
-        "--reproject-to",
-        "-r",
-        help="EPSG code to reproject both layers.",
     ),
     network_type: str = typer.Option(
         "drive",
@@ -59,7 +53,7 @@ def main(
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
 
-    polygons = load_geodata(polygons_file, reproject_to=reproject_to)
+    polygons = load_geodata(polygons_file)
     logger.info(f"Loaded: {polygons.shape[0]} features")
     pois = load_geodata(points_file, reproject_to=4326) 
     logger.info(f"Loaded: {pois.shape[0]} features")
