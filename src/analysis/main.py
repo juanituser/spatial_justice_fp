@@ -5,7 +5,7 @@ import time
 from analysis.io import load_geodata
 from analysis.network import get_centroids, get_bbox_wgs84, download_network, build_pandana_network
 from analysis.pois import register_pois
-from analysis.accesibility import compute_accessibility
+from src.analysis.accessibility import compute_accessibility
  
 
 logger = logging.getLogger(__name__)
