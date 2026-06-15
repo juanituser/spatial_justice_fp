@@ -5,6 +5,7 @@ import time
 from analysis.io import load_geodata
 from analysis.network import get_centroids, get_bbox_wgs84, download_network, build_pandana_network
 from analysis.pois import register_pois
+from analysis.accesibility import compute_accessibility
  
 
 logger = logging.getLogger(__name__)
@@ -38,7 +39,7 @@ def main(
         help="From OSMmnx, the options available are: all, all_public, bike, drive, drive_service, walk.",
     ),
     max_distance: float = typer.Option(
-        10000,
+        20000,
         "--max_distance",
         "-md",
         help="The maximum distance that will be used to find all the nearest pois"
@@ -48,7 +49,12 @@ def main(
         "--max_items",
         "-mi",
         help="The maximum number of items that will be found"
-    )
+    ), num_pois: int = typer.Option(
+        5,
+        "--num_pois",
+        "-np",
+        help="Count of POIs reachable within the maximum distance"
+    ),
 ):
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
@@ -80,7 +86,10 @@ def main(
     network = build_pandana_network(graph)
     # --- Register pois in the network ---
     register_pois(network, pois, max_distance=max_distance, max_items=max_items)
-    print(network.nodes_df.head())
+    # print(network.nodes_df.head())
+
+    raw_accessibility = compute_accessibility(network, max_distance=max_distance, num_pois=num_pois)
+    raw_accessibility.head()
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")

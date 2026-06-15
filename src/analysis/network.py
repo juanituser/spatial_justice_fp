@@ -77,12 +77,12 @@ def build_pandana_network(graph) -> pandana.Network:
     Returns:
         pandana.Network ready for accessibility queries
     """
+    
     nodes, edges = ox.graph_to_gdfs(graph, nodes=True, edges=True)
 
     edge_from = pd.Series(edges.index.get_level_values("u").values)
     edge_to = pd.Series(edges.index.get_level_values("v").values)
-    edge_weights = pd.DataFrame({"distance": edges["length"].values}) #### here i can put any weight that i want
-
+    edge_weights = pd.DataFrame({"distance": edges["length"].values})
     network = pandana.Network(
         node_x=nodes["x"],
         node_y=nodes["y"],
