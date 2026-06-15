@@ -9,7 +9,7 @@ def load_geodata(filename, folder="data/", reproject_to=None):
 
     gdf = gpd.read_file(folder + filename)
     
-    if gdf.crs != reproject_to:
+    if reproject_to is not None and gdf.crs != f"EPSG:{reproject_to}":
         logger.info(f"---- reprojecting to EPSG:{reproject_to} ----")
         gdf = gdf.to_crs(epsg=reproject_to)
 
