@@ -6,6 +6,7 @@ from analysis.io import load_geodata
 from analysis.network import get_centroids, get_bbox_wgs84, download_network, build_pandana_network
 from analysis.pois import register_pois
 from src.analysis.accessibility import compute_accessibility
+from src.analysis.socioeconomic import weight_accessibility
  
 
 logger = logging.getLogger(__name__)
@@ -54,6 +55,16 @@ def main(
         "--num_pois",
         "-np",
         help="Count of POIs reachable within the maximum distance"
+    ), weight_numerical: float = typer.Option(
+        0.5,
+        "--weight_numerical",
+        "-wn",
+        help="Importance of numerical variable"
+    ), weight_subjective: float = typer.Option(
+        0.5,
+        "--weight_subjective",
+        "-ws",
+        help="Importance of the subjective variable"
     ),
 ):
     logger.info("Accessibility Explorer. Starting Execution")
@@ -90,6 +101,9 @@ def main(
 
     raw_accessibility = compute_accessibility(network, max_distance=max_distance, num_pois=num_pois)
     raw_accessibility.head()
+
+    weighted_accessibility = weight_accessibility(raw_accessibility, polygons, weight_numerical=weight_numerical, weight_subjective=weight_subjective)
+
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")
