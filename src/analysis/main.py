@@ -57,31 +57,6 @@ def main(
         "-np",
         help="Count of POIs reachable within the maximum distance"
     ), 
-    numeric_vars: List[str] = typer.Option(
-        ["ingreso_por_hogar_promedio"],
-        "--numeric_vars",
-        "-nv",
-        help="Numerical variable name to make the analysis (can be specified multiple times)"
-    ),
-    subjective_vars: List[str] = typer.Option(
-        ["satisfaccion_con_barrio_comunidad_promedio", "satisfaccion_con_la_vida_promedio"],
-        "--subjective_vars",
-        "-sv",
-        help="Subjective variable names to make the analysis (can be specified multiple times)"
-    ),   
-    numeric_weight: float = typer.Option(
-        0.5,
-        "--numeric_weight",
-        "-wn",
-        help="Importance of numerical variable"
-    ),
-    subjective_weight: float = typer.Option(
-        0.5,
-        "--subjective_weight",
-        "-ws",
-        help="Importance of the subjective variable"
-    ),
-
 ):
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
@@ -118,7 +93,7 @@ def main(
     raw_accessibility = compute_accessibility(network, max_distance=max_distance, num_pois=num_pois)
     raw_accessibility.head()
 
-    weighted_accessibility = weight_accessibility(polygons, numeric_vars=numeric_vars, subjective_vars=subjective_vars)
+    # weighted_accessibility = weight_accessibility(polygons, numeric_vars=numeric_vars, subjective_vars=subjective_vars)
 
 
     end = time.time()

@@ -1,3 +1,4 @@
+import pandas as pd
 import geopandas as gpd
 import logging
 
@@ -24,3 +25,17 @@ def load_geodata(filename, folder="data/", reproject_to=None):
         gdf.geometry = gdf.geometry.buffer(0)
 
     return gdf
+
+def load_weighting_config(config_file, folder="data/"):
+    """
+    Reads weighting config CSV and returns variables and their weights.
+    
+    Returns:
+        (variable_names, weights_dict)
+    """
+
+    logger.info(f"---- loading {config_file} ----")
+
+    weights = pd.read_csv(folder + config_file)
+
+    return weights
