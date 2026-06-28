@@ -2,13 +2,13 @@ import logging
 import sys
 import typer
 import time
-from typing import List
-from analysis.io import load_geodata
+import sys
+from analysis.io import load_geodata, load_weighting_config
 from analysis.network import get_centroids, get_bbox_wgs84, download_network, build_pandana_network
 from analysis.pois import register_pois
 from analysis.accessibility import compute_accessibility
-from analysis.socioeconomic import weight_accessibility
- 
+from analysis.socioeconomic import weight_accessibility, normalize_variables
+
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +27,12 @@ def main(
         "--polygons",
         "-pl",
         help="GeoJSON filename for the polygons (e.g. District or neighbors boundaries).",
+    ),
+    config_file: str = typer.Option(
+        "config.csv",
+        "--config",
+        "-c",
+        help="CSV filename with socioeconomic variables that want to be included in the analysis and its weights (e.g. District or neighbors boundaries).",
     ),
     points_file: str = typer.Option(
         "ies.geojson",
@@ -61,16 +67,20 @@ def main(
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
 
+    # -----------------------------------------
+    # --- Read data and configuration files ---
+    # -----------------------------------------
+
     polygons = load_geodata(polygons_file)
     logger.info(f"Loaded: {polygons.shape[0]} features")
     pois = load_geodata(points_file, reproject_to=4326) 
     logger.info(f"Loaded: {pois.shape[0]} features")
 
-    print(polygons.crs)          
-    print(polygons.shape)       
-    print(pois.crs)                 
-    print(pois.shape)    
+    all_vars = load_weighting_config(config_file=config_file)
 
+    normalize_variables(polygons, all_vars)
+
+    sys.exit(0)
     # -------------------------------------------------------------------------- 
     # --- Get the distance from the centroids to the nearest 10 institutions ---
     # -------------------------------------------------------------------------- 
@@ -93,7 +103,7 @@ def main(
     raw_accessibility = compute_accessibility(network, max_distance=max_distance, num_pois=num_pois)
     raw_accessibility.head()
 
-    # weighted_accessibility = weight_accessibility(polygons, numeric_vars=numeric_vars, subjective_vars=subjective_vars)
+    weighted_accessibility = weight_accessibility(polygons, all_vars)
 
 
     end = time.time()

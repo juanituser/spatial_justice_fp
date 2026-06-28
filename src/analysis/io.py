@@ -31,11 +31,16 @@ def load_weighting_config(config_file, folder="data/"):
     Reads weighting config CSV and returns variables and their weights.
     
     Returns:
-        (variable_names, weights_dict)
+        (Dict with variables names and its weights)
     """
 
     logger.info(f"---- loading {config_file} ----")
 
-    weights = pd.read_csv(folder + config_file)
+    config = pd.read_csv(folder + config_file)
 
-    return weights
+    variable_name = config["variable_name"].tolist()
+    weights = config["weight"].tolist()
+
+    socioeconomic_variables = dict(zip(variable_name, weights))
+
+    return socioeconomic_variables
