@@ -9,11 +9,12 @@
 
 2. Weight the physical distance by socioeconomic and subjective variables
 
+   - Read and save in a df the csv file with variables to include and its weights
    - Normalize all weighting variables (income, satisfaction with neighborhood, satisfaction with life) to a 0-1 scale so they are comparable 
-   - Multiply the baseline physical distance by a composite factor built from those normalized variables
+   - Build a composite factor from those normalized variables, weighted according user wants to
+   - Structure variables as impedance to include in pandana **network.nearest_pois**
    - The result is the composite accessibility indicator: a weighted distance that reflects not only how far a district is from higher educational institutios but how hard that distance is given its socioeconomic and perceptual conditions
 
 3. Map the result
 
-   - Plot a choropleth map of the composite accessibility indicator across UPLs
-   - UPLs with higher values face greater structural barriers to accessing higher education
+   - Plot a choropleth map of the composite accessibility indicator across UPLs, where UPLs with higher values face greater structural barriers to accessing higher education

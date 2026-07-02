@@ -42,7 +42,8 @@ The composite accessibility indicator built in this analysis allows for identify
 accessibility-explorer/
 ├── data/                          # Input data
 │   ├── data.geojson                # District polygon boundaries
-│   └── ies.geojson                 # Higher Education Institutions points
+│   ├──  config.csv                 # Configuration file with variables to include and weights
+|    └── ies.geojson                # Higher Education Institutions points
 ├── src/
 │   └── swm/
 │       ├── main.py                # Entry point
