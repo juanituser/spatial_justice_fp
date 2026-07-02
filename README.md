@@ -49,9 +49,9 @@ accessibility-explorer/
 │       ├── main.py                # Entry point
 │       ├── io.py                  # Data loading and validation
 │       ├── network.py             # Street network download and build
-│       ├── analysis/
-│       │   ├── pois.py            # POI registration
-│       │   └── accessibility.py   # Accessibility computation
+│       ├── pois.py                # POI registration
+│       ├── accessibility.py       # Raw accessibility computation
+│       ├── socioeconomic.py       # Socioeconomic computation
 │       └── viz.py                 # Visualization
 ├── pyproject.toml                 # Dependencies and project config
 ├── README.md                      
