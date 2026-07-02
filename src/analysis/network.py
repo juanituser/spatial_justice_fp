@@ -8,16 +8,13 @@ logger = logging.getLogger(__name__)
 
 def get_centroids(polygons):
     """
-    Calculate the centroid of the polygons inserted and returns a gdf with the points.
-
-    Args:
-        polygons: GeoDataFrame in any CRS with subdivisions of a region
-
-    Returns:
-        centroids: GeoDataFrame in the same CRS as inserted with the points of the centroids.
-    """
-
-    centroids = polygons.geometry.centroid
+    Calculate centroids of the polygons and reproject to WGS84 for pandana.
+    """ 
+    centroids = polygons.copy()
+    centroids.geometry = centroids.geometry.centroid
+    
+    centroids = centroids.to_crs(epsg=4326)
+    
     return centroids
 
 def get_bbox_wgs84(gdf: gpd.GeoDataFrame):
