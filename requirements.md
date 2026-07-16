@@ -17,4 +17,4 @@
 
 3. Map the result
 
-   - Plot a choropleth map of the composite accessibility indicator across UPLs, where UPLs with higher values face greater structural barriers to accessing higher education
+   - Plot a choropleth map of the composite accessibility indicator across UPLs, where UPLs with higher values face greater structural barriers to accessing higher education: it has to show someone using colors, title, everything how to solve the problem clearly. It has to answer one question, and it has to be clear to take a decision. 
