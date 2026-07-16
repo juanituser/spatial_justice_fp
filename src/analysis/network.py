@@ -6,6 +6,9 @@ import osmnx as ox
 
 logger = logging.getLogger(__name__)
 
+ox.settings.use_cache = True              
+ox.settings.cache_folder = "./cache"
+
 def get_centroids(polygons):
     """
     Calculate centroids of the polygons and reproject to WGS84 for pandana.
@@ -50,8 +53,11 @@ def download_network(bbox, network_type):
     Returns:
         osmnx MultiDiGraph
     """
-    print(f"Downloading OSM {network_type} simplified primary highways network...")
+    print(f"Downloading OSM {network_type} simplified network...")
+   
     cf = '["highway"~"motorway|primary"]'
+    
+
     graph = ox.graph_from_bbox(
         bbox,
         network_type=network_type,
