@@ -1,5 +1,10 @@
 import pandana
 import geopandas as gpd
+import logging
+
+
+
+logger = logging.getLogger(__name__)
 
 
 def register_pois(
@@ -26,4 +31,6 @@ def register_pois(
         x_col=pois.geometry.x,
         y_col=pois.geometry.y,
     )
-    print(f"POIs registered on network")
+    logger.info(f"Registered {len(pois)} POIs on network (category='poi', maxdist={max_distance}, maxitems={max_items})")
+
+    
