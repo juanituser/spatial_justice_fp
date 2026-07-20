@@ -1,0 +1,4 @@
+﻿variable_name,weight
+ingreso_por_hogar_promedio,0.4
+satisfaccion_con_barrio_comunidad_promedio,0.4
+satisfaccion_con_ingresos_promedio,0.2
