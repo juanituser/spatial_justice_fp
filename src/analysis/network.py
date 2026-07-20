@@ -54,14 +54,10 @@ def download_network(bbox, network_type):
         osmnx MultiDiGraph
     """
     print(f"Downloading OSM {network_type} simplified network...")
-   
-    cf = '["highway"~"motorway|primary"]'
-    
 
     graph = ox.graph_from_bbox(
         bbox,
         network_type=network_type,
-        custom_filter=cf,
         simplify=True
     )
     
