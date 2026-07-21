@@ -1,4 +1,4 @@
 ﻿variable,weight,direction
 income,0.4,higher_better
 life_satisfaction,0.4,higher_better
-unemployment_rate,0.2,lower_better
+neighborhood_insatisfaction,0.2,lower_better

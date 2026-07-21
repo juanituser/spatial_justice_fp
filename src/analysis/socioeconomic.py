@@ -6,51 +6,80 @@ logger = logging.getLogger(__name__)
 
 def normalize_variables(polygons: gpd.GeoDataFrame, socioeconomic_vars: dict) -> dict:
     """
-    Normalizes multiple variables to 0-1 scale.
-    
+    Normalizes multiple variables to 0-1 scale, respecting each
+    variable's direction (higher_better or lower_better).
+
     Args:
         polygons: GeoDataFrame with the variables
-        variables: Dictionary with the name of the socioeconomic variables to include in the analysis and its weights
-    
+        socioeconomic_vars: {variable_name: {"weight": float, "direction": str}}
+
     Returns:
-        Dictionary with {variable_name: normalized_series}
+        Dictionary with {variable_name: normalized_series}, where higher
+        values always mean "better" regardless of the original direction.
     """
     normalized = {}
-    
-    logger.info(f"---- Normalizing variables ----")
+    logger.info("---- Normalizing variables ----")
 
-    vars = socioeconomic_vars.keys()
+    print(socioeconomic_vars)
 
-    for variable in vars:
+    for variable, config in socioeconomic_vars.items():
         var_min = polygons[variable].min()
         var_max = polygons[variable].max()
+
         var_normalized = (polygons[variable] - var_min) / (var_max - var_min)
+
+        # Invert direction if lower is better
+        if config["direction"] == "lower_better":
+            var_normalized = 1 - var_normalized
+
         normalized[variable] = var_normalized
-    
+        logger.info(
+            f"  - {variable}: min={var_min:.2f}, max={var_max:.2f}, "
+            f"direction={config['direction']}"
+        )
+
     return normalized
 
-def weight_accessibility(
-    polygons: gpd.GeoDataFrame,
-    socioeconomic_vars: dict
 
+def weight_accessibility(
+    accessibility: pd.DataFrame,
+    polygons: gpd.GeoDataFrame,
+    socioeconomic_vars: dict,
+    distance_col: str = "mean_dist",
 ) -> pd.Series:
     """
-    Applies socioeconomic and subjective weighting to raw network distances.
-    
+    Applies socioeconomic weighting to raw accessibility distances, producing a spatial-justice index: districts that are both far from POIs and socioeconomically disadvantaged get an amplified effective distance.
+
     Args:
-        raw_distances: mean distance to N nearest HEIs (from compute_accessibility)
-        polygons: GeoDataFrame with the variables to weight
-        socioeconomic_vars: Dictionary with the name of the socioeconomic variables to include in the analysis and its weights 
-    
+        accessibility: DataFrame from compute_accessibility
+                       (dist_1...dist_N, mean_dist, opportunities),
+                       indexed by district_id
+        polygons: GeoDataFrame with socioeconomic variables,
+                  indexed by district_id
+        socioeconomic_vars: {variable_name: {"weight": float, "direction": str}}
+        distance_col: which column of `accessibility` to use as the base distance
+
     Returns:
-        Weighted accessibility score (higher = more disadvantaged)
+        pd.Series indexed by district_id. Higher = more disadvantaged
+        (far from POIs AND socioeconomically vulnerable).
     """
-    
-    # Used the normalize variables
-    all_vars = numeric_vars + subjective_vars
-    normalized = normalize_variables(polygons, all_vars)
+    ## Normalized variables
+    normalized = normalize_variables(polygons, socioeconomic_vars)
 
-    # Invert weight if needed: lower values → higher penalty
+    penalty = sum(
+    cfg["weight"] * (1 - normalized[var])
+    for var, cfg in socioeconomic_vars.items()
+)
 
-    
-    return 0
+    base_distance = accessibility[distance_col]
+
+    # Amplify raw distance by socioeconomic penalty: a disadvantaged
+    # district's *effective* distance grows, even if its raw distance is short.
+    result = base_distance * (1 + penalty)
+
+    logger.info(
+        f"Weighted accessibility computed for {len(result)} districts "
+        f"(base column: '{distance_col}')"
+    )
+
+    return result

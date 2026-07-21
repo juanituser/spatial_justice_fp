@@ -18,6 +18,8 @@ def get_centroids(polygons):
     
     centroids = centroids.to_crs(epsg=4326)
     
+    logger.info(f"Calculated: {centroids.shape[0]} centroids")
+
     return centroids
 
 def get_bbox_wgs84(gdf: gpd.GeoDataFrame):

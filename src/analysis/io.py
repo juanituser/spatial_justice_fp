@@ -58,8 +58,8 @@ def load_weighting_config(config_file: str, folder="data/") -> dict:
     valid_directions = {"higher_better", "lower_better"}
     invalid = ~config["direction"].isin(valid_directions)
     if invalid.any():
-        bad_rows = config.loc[invalid, ["variable", "direction"]]
-        raise ValueError(f"Invalid direction values (must be 'higher_better' or 'lower_better'):\n{bad_rows}")
+        invalid_rows = config.loc[invalid, ["variable", "direction"]]
+        raise ValueError(f"Invalid direction values (must be 'higher_better' or 'lower_better'):\n{invalid_rows}")
 
     # Validate that the sum of the weights is 1
     weight_sum = config["weight"].sum()
@@ -73,7 +73,7 @@ def load_weighting_config(config_file: str, folder="data/") -> dict:
 
     logger.info(f"Loaded {len(all_vars)} weighting variables from {config_file}")
 
-    for name, config in all_vars.items():
-        logger.info(f"  - {name}: weight={config['weight']}, direction={config['direction']}")
+    for name, var_config in all_vars.items():
+        logger.info(f"  - {name}: weight={var_config['weight']}, direction={var_config['direction']}")
 
     return all_vars
