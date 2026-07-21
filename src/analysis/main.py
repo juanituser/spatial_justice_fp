@@ -7,6 +7,7 @@ from analysis.network import get_centroids, get_bbox_wgs84, download_network, bu
 from analysis.pois import register_pois
 from analysis.accessibility import compute_accessibility
 from analysis.socioeconomic import weight_accessibility
+from analysis.viz import plot_accessibility_choropleth
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +61,19 @@ def main(
         "--num_pois",
         "-np",
         help="Count of POIs reachable within the maximum distance"
-    ), 
+    ), title: str = typer.Option(
+        'Accesibiity Map',
+        "--title",
+        "-t",
+        help="Title of the report"
+    ), n_classes: int = typer.Option(
+        5,
+        "--n_classes",
+        "-nc",
+        help="Number of classes to create the cloropleth map"
+    ),
+
+
 ):
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
@@ -75,8 +88,6 @@ def main(
     logger.info(f"Loaded: {pois.shape[0]} features")
 
     all_vars = load_weighting_config(config_file=config_file)
-    
-    sys.exit()
 
     # -------------------------------------------------------------------------- 
     # --- Get the distance from the centroids to the nearest 10 institutions ---
@@ -84,7 +95,7 @@ def main(
 
     # --- Get the centroids of the polygons ---
     centroids = get_centroids(polygons)
-    logger.info(f"Calculated: {centroids.shape[0]} centroids")
+    
     # --- Get the bbox of the polygons ---
     bbox = get_bbox_wgs84(polygons)
     logger.info(f"Bounding box is {bbox}")
@@ -98,14 +109,13 @@ def main(
 
     # --- Calculate accessibility from each polygon to each POI --- 
     raw_accessibility = compute_accessibility(network, centroids, max_distance=max_distance, num_pois=num_pois)
-    print(raw_accessibility)
-    sys.exit()
-    # ---  --- 
+    
+    # --- Calculate weighted accessibility including distances and external variables and its direction --- 
     weighted_accessibility = weight_accessibility(raw_accessibility, polygons, all_vars)
     
-    print(weighted_accessibility)
-
     # --- Visualization --- 
+
+    plot_accessibility_choropleth(polygons, weighted_accessibility, title, n_classes)
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")
