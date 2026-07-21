@@ -1,4 +1,4 @@
-﻿variable_name,weight
-ingreso_por_hogar_promedio,0.5
-satisfaccion_con_barrio_comunidad_promedio,0.2
-satisfaccion_con_la_vida_promedio,0.3
+﻿variable,weight,direction
+income,0.4,higher_better
+life_satisfaction,0.4,higher_better
+unemployment_rate,0.2,lower_better

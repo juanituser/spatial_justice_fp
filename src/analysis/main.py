@@ -75,10 +75,8 @@ def main(
     logger.info(f"Loaded: {pois.shape[0]} features")
 
     all_vars = load_weighting_config(config_file=config_file)
-    logger.info(f"Loaded {len(all_vars)} weighting variables from {config_file}")
-
-    for var, weight in all_vars.items():
-        logger.info(f"  - {var}:  weight = {weight}")
+    
+    sys.exit()
 
     # -------------------------------------------------------------------------- 
     # --- Get the distance from the centroids to the nearest 10 institutions ---
