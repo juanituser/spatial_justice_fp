@@ -34,7 +34,7 @@ def main(
         help="CSV filename with socioeconomic variables that want to be included in the analysis and its weights (e.g. District or neighbors boundaries).",
     ),
     points_file: str = typer.Option(
-        "ies_munster.geojson",
+        "heis_munster.geojson",
         "--points",
         "-pt",
         help="GeoJSON filename for the points (e.g. Higher Education Institutions).",
@@ -115,7 +115,7 @@ def main(
     
     # --- Visualization --- 
 
-    plot_accessibility_choropleth(polygons, weighted_accessibility, title, n_classes)
+    plot_accessibility_choropleth(polygons, pois, weighted_accessibility, title, n_classes)
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")
