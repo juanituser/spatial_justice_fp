@@ -115,7 +115,10 @@ def main(
     
     # --- Visualization --- 
 
-    plot_accessibility_choropleth(polygons, pois, weighted_accessibility, title, n_classes)
+    plot_accessibility_choropleth(polygons, pois, accessibility_score=raw_accessibility["mean_dist"],
+    title="Raw Accessibility to Points of Interest", weighted=False)
+
+    plot_accessibility_choropleth(polygons, pois, accessibility_score=weighted_accessibility,     title="Weighted Accessibility to Points of Interest", weighted=True)
 
     end = time.time()
     logger.info(f"Execution time: {end - start:.2f} seconds")

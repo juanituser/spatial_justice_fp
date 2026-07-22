@@ -1,80 +1,104 @@
+import logging
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import geopandas as gpd
 import pandas as pd
-import logging
+import mapclassify
 from pathlib import Path
+
 
 logger = logging.getLogger(__name__)
 
 def plot_accessibility_choropleth(
     polygons: gpd.GeoDataFrame,
     pois: gpd.GeoDataFrame,
-    weighted_accessibility: pd.Series,
+    accessibility_score: pd.Series,
     title: str,
-    n_classes: int,
-    output_path: str = "reports/accessibility_map.png",
-) -> None:
+    weighted: bool = True,
+    n_classes: int = 5,
+    subtitle: str | None = None,
+):
     """
-    Renders a choropleth map showing spatial-justice accessibility per district, and saves it as a PNG.
+    Renders a choropleth map with an explicit class legend and POI locations, and saves it as a PNG.
 
     Args:
-        polygons: GeoDataFrame with district geometries
-        weighted_accessibility: Series from weight_accessibility
-        title: map title
-        n_classes: number of quantile classes for the color scale
-        output_path: where to save the PNG        
+        accessibility_score: Series indexed like `polygons`. Higher = worse access. Pass either the raw accessibility or the socioeconomically weight accessibility.
     """
-    # Merge the score with polygons
     map_data = polygons.copy()
-    map_data["accessibility_score"] = weighted_accessibility
+    map_data["accessibility_score"] = accessibility_score
 
-    pois_data = pois.copy()
+    missing = map_data["accessibility_score"].isna()
+    if missing.any():
+        logger.warning(
+            f"{missing.sum()} districts have no accessibility score "
+            f"and will appear blank: {map_data.loc[missing].index.tolist()}"
+        )
 
-    if pois_data.crs != map_data.crs:
-       logger.info(f"Reprojecting POIs from {pois_data.crs} to {map_data.crs} for plotting")
-       pois_data = pois_data.to_crs(map_data.crs)
-    
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+    valid_scores = map_data["accessibility_score"].dropna()
+    classifier = mapclassify.Quantiles(valid_scores, k=n_classes)
+    map_data["class"] = classifier.yb
 
-    fig, ax = plt.subplots(figsize=(10, 10))
+    class_labels = [
+        "Excellent accessibility",
+        "Good accessibility",
+        "Medium accessibility",
+        "Low accessibility",
+        "Needs priority attention",
+    ]
+
+    if subtitle is None:
+        subtitle = (
+            "Socioeconomically weighted accessibility deprivation index by district"
+            if weighted
+            else "Raw accessibility (distance to nearest POIs) by district"
+        )
+
+    legend_title = "Accessibility level (weighted)" if weighted else "Accessibility level (raw distance)"
+
+    fig, ax = plt.subplots(figsize=(11, 11))
 
     map_data.plot(
-        column="accessibility_score",
-        cmap="YlOrRd",            
-        scheme="quantiles",          
-        k=n_classes,
-        legend=True,
-        legend_kwds={
-            "title": "Índice de privación de acceso\n(más alto = peor acceso)",
-            "loc": "lower right",
-            "fontsize": 8,
-        },
-        edgecolor="grey",
-        linewidth=0.5,
-        missing_kwds={
-            "color": "lightgrey",
-            "label": "Sin datos",
-        },
+        column="class",
+        cmap="YlOrBr",
+        categorical=True,
+        edgecolor="#999999",
+        linewidth=0.4,
+        alpha=0.85,
+        missing_kwds={"color": "#eeeeee"},
         ax=ax,
+        legend=False,
     )
 
-    pois_data.plot(
-        ax=ax,
-        color="blue",
-        marker="^",
-        markersize=80,
-        edgecolor="blue",
-        linewidth=1,
-        label="Points of interest",
-        zorder=3,  
+    pois.plot(
+        ax=ax, color="black", marker="o", markersize=35,
+        edgecolor="white", linewidth=0.6, zorder=4,
     )
 
-    ax.set_title(title, fontsize=14, fontweight="bold")
+    cmap = plt.get_cmap("YlOrBr", n_classes)
+    legend_patches = [
+        mpatches.Patch(color=cmap(i), label=class_labels[i], alpha=0.85)
+        for i in range(n_classes)
+    ]
+    poi_marker = plt.Line2D(
+        [0], [0], marker="o", color="w", markerfacecolor="black",
+        markersize=8, markeredgecolor="white", label="Points of interest"
+    )
+    ax.legend(
+        handles=legend_patches + [poi_marker],
+        loc="lower right", fontsize=9, title=legend_title,
+        title_fontsize=10, frameon=True, facecolor="white", framealpha=0.9,
+    )
+
+    ax.set_title(title, fontsize=16, fontweight="bold", pad=25)
+    ax.text(0.5, 1.01, subtitle, transform=ax.transAxes, ha="center", fontsize=11, color="dimgrey")
+
     ax.set_axis_off()
-    ax.legend(loc="upper left", fontsize=8, frameon=True)
 
+    output_path = "reports/accessibility_map_weighted.png" if weighted else "reports/accessibility_map_raw.png"
+    
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     plt.tight_layout()
     plt.savefig(output_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    logger.info(f"Choropleth map saved to {output_path}")
+    logger.info(f"Choropleth map saved to {output_path} (weighted={weighted})")
