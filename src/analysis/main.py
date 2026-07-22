@@ -61,19 +61,7 @@ def main(
         "--num_pois",
         "-np",
         help="Count of POIs reachable within the maximum distance"
-    ), title: str = typer.Option(
-        'Accesibiity Map',
-        "--title",
-        "-t",
-        help="Title of the report"
-    ), n_classes: int = typer.Option(
-        5,
-        "--n_classes",
-        "-nc",
-        help="Number of classes to create the cloropleth map"
     ),
-
-
 ):
     logger.info("Accessibility Explorer. Starting Execution")
     start = time.time()
