@@ -30,6 +30,16 @@ Justice is assessed from a **distributive** perspective: are educational resourc
 
 The composite accessibility indicator built in this analysis allows for identifying which UPLs face the greatest structural disadvantage — not only because they are physically distant from HEIs, but because that distance is amplified by economic and subjective factors.
 
+### 4. Flow diagram
+
+![Workflow](workflow.png "Worflow Diagram")
+
+
+## Why this matters for decision-making
+
+Access to opportunities — universities, hospitals, jobs, parks — is never distributed evenly across a city, and distance alone doesn't tell the whole story: a neighborhood can be geographically close to an institution and still be functionally excluded from it if its residents face poverty, low education, or social vulnerability that compounds the effect of physical distance. This tool makes that combination visible and measurable. By calculating raw network-based accessibility (not straight-line distance, but actual travel distance along real streets) and then weighting it by the socioeconomic conditions a decision-maker chooses to prioritize, it produces a single spatial-justice index that highlights the districts suffering the *double disadvantage* of being both far from key services and socioeconomically vulnerable. Because the analysis works with any polygon boundaries, any set of points of interest, and any user-defined combination of weighted variables, it can support very different real decision, like a city government prioritizing where to build a new school, a university deciding where to open a satellite campus, or a researcher comparing equity outcomes across cities, just new input files.
+
+
 ## Data sources
 
 - Socioeconomic and demographic variables: [Secretaría Distrital de Planeación](https://sdp.gov.co/gestion-estudios-estrategicos/informacion-estadisticas/encuesta-multiproposito)
@@ -41,13 +51,14 @@ The composite accessibility indicator built in this analysis allows for identify
 ```
 accessibility-explorer/
 ├── data/                          # Input data
-│   ├── data.geojson                # District polygon boundaries
-│   ├──  config.csv                 # Configuration file with variables to include and weights
-|    └── ies.geojson                # Higher Education Institutions points
+│   ├── data.geojson               # District polygon boundaries
+│   ├──  config.csv                # Configuration file with variables to include and weights
+|   └── ies.geojson                # Higher Education Institutions points
 ├── src/
 │   └── swm/
-│       ├── main.py                # Entry point
+│       ├── accessibility.py       # Raw accessibility computation
 │       ├── io.py                  # Data loading and validation
+│       ├── main.py                # Entry point
 │       ├── network.py             # Street network download and build
 │       ├── pois.py                # POI registration
 │       ├── accessibility.py       # Raw accessibility computation
@@ -116,3 +127,6 @@ These categories are mutually exclusive — a person appears in only one of them
 
 ## Licencia
 This project is under [MIT](./LICENCE.md).
+
+
+

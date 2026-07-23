@@ -49,7 +49,7 @@ def main(
         100000,
         "--max_distance",
         "-md",
-        help="The maximum distance that will be used to find all the nearest pois"
+        help="The maximum distance in meters that will be used to find all the nearest pois"
     ),
     max_items: int = typer.Option(
         10,
@@ -76,6 +76,20 @@ def main(
     logger.info(f"Loaded: {pois.shape[0]} features")
 
     all_vars = load_weighting_config(config_file=config_file)
+
+    # -----------------------------------------------------------------
+    # --- Validate that config variables actually exist in polygons ---
+    # -----------------------------------------------------------------
+
+    missing_vars = [var for var in all_vars.keys() if var not in polygons.columns]
+    if missing_vars:
+        available = [c for c in polygons.columns if c != "geometry"]
+        raise ValueError(
+            f"The following variables from '{config_file}' do not exist "
+            f"as columns in '{polygons_file}': {missing_vars}\n"
+            f"Available columns: {available}"
+        )
+    logger.info(f"All {len(all_vars)} config variables validated against {polygons_file}")
 
     # -------------------------------------------------------------------------- 
     # --- Get the distance from the centroids to the nearest 10 institutions ---
