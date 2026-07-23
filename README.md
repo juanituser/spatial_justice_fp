@@ -125,7 +125,7 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 
 ---
 
-### 5. Conclusionon
+### 5. Conclusion
 
 The Bogotá analysis reveals a clear pattern of spatial inequality: peripheral districts, particularly in the south and southwest of the city, face both the longest distances to higher education institutions and the most disadvantaged socioeconomic conditions; this is a combination that pushes them further down in the weighted index than raw distance alone would suggest. Central and northern districts, where most universities are concentrated, consistently show better accessibility. This confirms that unequal access to higher education in Bogotá isn't just a matter of physical distance, it's compounded by the socioeconomic conditions of the people living farthest away, making these districts the clearest priority for interventions aimed at improving both educational supply and social conditions.
 
