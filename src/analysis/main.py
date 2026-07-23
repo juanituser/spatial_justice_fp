@@ -72,9 +72,8 @@ def main(
 
     polygons = load_geodata(polygons_file)
     logger.info(f"Loaded: {polygons.shape[0]} features")
-    pois = load_geodata(points_file, reproject_to=4326) ### IN THIS CASE, HEI
+    pois = load_geodata(points_file, reproject_to=4326) 
     logger.info(f"Loaded: {pois.shape[0]} features")
-
     all_vars = load_weighting_config(config_file=config_file)
 
     # -----------------------------------------------------------------
@@ -91,13 +90,12 @@ def main(
         )
     logger.info(f"All {len(all_vars)} config variables validated against {polygons_file}")
 
-    # -------------------------------------------------------------------------- 
-    # --- Get the distance from the centroids to the nearest 10 institutions ---
-    # -------------------------------------------------------------------------- 
+    # ---------------------------------------------------------------
+    # --- Get the distance from the centroids to the nearest pois ---
+    # ---------------------------------------------------------------
 
     # --- Get the centroids of the polygons ---
     centroids = get_centroids(polygons)
-    
     # --- Get the bbox of the polygons ---
     bbox = get_bbox_wgs84(polygons)
     logger.info(f"Bounding box is {bbox}")
@@ -105,17 +103,20 @@ def main(
     graph   = download_network(bbox, network_type=network_type)
     # --- Building the network using the graph ---
     network = build_pandana_network(graph)
-
     # --- Register pois in the network ---
     register_pois(network, pois, max_distance=max_distance, max_items=max_items)
-
     # --- Calculate accessibility from each polygon to each POI --- 
     raw_accessibility = compute_accessibility(network, centroids, max_distance=max_distance, num_pois=num_pois)
-    
-    # --- Calculate weighted accessibility including distances and external variables and its direction --- 
+
+    # -----------------------------------------
+    # --- Calculate weighted accessibility  ---
+    # -----------------------------------------
+  
     weighted_accessibility = weight_accessibility(raw_accessibility, polygons, all_vars)
     
-    # --- Visualization --- 
+    # ------------------------
+    # --- Plot the result  ---
+    # ------------------------
 
     plot_accessibility_choropleth(polygons, pois, accessibility_score=raw_accessibility["mean_dist"],
     title="Raw Accessibility to Points of Interest", weighted=False)
