@@ -37,7 +37,7 @@ The composite accessibility indicator built in this analysis allows for identify
 
 ## Why this matters for decision-making
 
-Access to opportunities — universities, hospitals, jobs, parks is never distributed evenly across a city, and distance alone doesn't tell the whole story: a neighborhood can be geographically close to an institution and still be functionally excluded from it if its residents face poverty, low education, or social vulnerability that compounds the effect of physical distance. This tool makes that combination visible and measurable. By calculating raw network-based accessibility (not straight-line distance, but actual travel distance along real streets) and then weighting it by the socioeconomic conditions a decision-maker chooses to prioritize, it produces a single spatial-justice index that highlights the districts suffering the *double disadvantage* of being both far from key services and socioeconomically vulnerable. Because the analysis works with any polygon boundaries, any set of points of interest, and any user-defined combination of weighted variables, it can support very different real decision, like a city government prioritizing where to build a new school, a university deciding where to open a satellite campus, or a researcher comparing equity outcomes across cities, just new input files.
+Access to opportunities (universities, hospitals, jobs, parks) is never distributed evenly across a city, and distance alone doesn't tell the whole story: a neighborhood can be geographically close to an institution and still be functionally excluded from it if its residents face poverty, low education, or social vulnerability that compounds the effect of physical distance. This tool makes that combination visible and measurable. By calculating raw network-based accessibility (not straight-line distance, but actual travel distance along real streets) and then weighting it by the socioeconomic conditions a decision-maker chooses to prioritize, it produces a single spatial-justice index that highlights the districts suffering the *double disadvantage* of being both far from key services and socioeconomically vulnerable. Because the analysis works with any polygon boundaries, any set of points of interest, and any user-defined combination of weighted variables, it can support very different real decision, like a city government prioritizing where to build a new school, a university deciding where to open a satellite campus, or a researcher comparing equity outcomes across cities, just new input files.
 
 
 ## Data sources
@@ -125,6 +125,9 @@ When multiple dataframes share a column name (e.g., `PROMEDIO`), columns are aut
 
 ---
 
+### 5. Conclusionon
+
+The Bogotá analysis reveals a clear pattern of spatial inequality: peripheral districts, particularly in the south and southwest of the city, face both the longest distances to higher education institutions and the most disadvantaged socioeconomic conditions; this is a combination that pushes them further down in the weighted index than raw distance alone would suggest. Central and northern districts, where most universities are concentrated, consistently show better accessibility. This confirms that unequal access to higher education in Bogotá isn't just a matter of physical distance, it's compounded by the socioeconomic conditions of the people living farthest away, making these districts the clearest priority for interventions aimed at improving both educational supply and social conditions.
 
 ## Licencia
 This project is under [MIT](./LICENCE.md).
