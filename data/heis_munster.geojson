@@ -1,0 +1,31 @@
+{
+"type": "FeatureCollection",
+"name": "heis_munster",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "osm_id": 11542438872, "isced_level": null, "name": "Institut für Didaktik des Sachunterrichts", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6034436, 51.9735219 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2125048466, "isced_level": null, "name": "Institut für vergleichende Städtegeschichte", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6257323, 51.9585454 ] } },
+{ "type": "Feature", "properties": { "osm_id": 834843815, "isced_level": null, "name": "Sozialberatung des Studentenwerks Münster", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5759264, 51.9758997 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2122825954, "isced_level": null, "name": "Ombudsmann, Selbstkontrolle in der Wissenschaft", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6037574, 51.9598242 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2122661693, "isced_level": null, "name": "Institut für Biometrie und klinische Forschung", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5909353, 51.9590738 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2123976909, "isced_level": null, "name": "Musikpädagogik", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6024853, 51.9705377 ] } },
+{ "type": "Feature", "properties": { "osm_id": 4416508592, "isced_level": null, "name": "Münster School of Design", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6011072, 51.9754701 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2009685504, "isced_level": null, "name": "Katholische Hochschule (KatHO) NRW (Abteilung Münster)", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6387501, 51.9686676 ] } },
+{ "type": "Feature", "properties": { "osm_id": 4897130077, "isced_level": null, "name": "FOM Hochschule Hochschulzentrum Münster", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6512326, 51.9339105 ] } },
+{ "type": "Feature", "properties": { "osm_id": 8606418836, "isced_level": null, "name": "IUBH Internationale Hochschule", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6277498, 51.9420538 ] } },
+{ "type": "Feature", "properties": { "osm_id": 4260080494, "isced_level": null, "name": "PTA-Fachschule Westfalen-Lippe", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6514958, 51.937164 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2879572855, "isced_level": null, "name": "Institut für Medizinische Informatik", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5987979, 51.9607498 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2327505134, "isced_level": null, "name": "Fachschaft Medizin", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5993454, 51.9607529 ] } },
+{ "type": "Feature", "properties": { "osm_id": 12330510691, "isced_level": null, "name": "Außenwirtschafts-Akademie", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6255877, 51.9586251 ] } },
+{ "type": "Feature", "properties": { "osm_id": 3439353117, "isced_level": null, "name": "HO 41, Seminarraum", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5982159, 51.9723954 ] } },
+{ "type": "Feature", "properties": { "osm_id": 320703600, "isced_level": null, "name": "Fachbereich 5: Medizin", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6010794, 51.9606985 ] } },
+{ "type": "Feature", "properties": { "osm_id": 3694811040, "isced_level": null, "name": "Fachhochschule Münster (Campus Münster)", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.595439, 51.9683861 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2647338558, "isced_level": null, "name": "Brasilien-Zentrum der Universität Münster", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.601355, 51.9762545 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2647212812, "isced_level": null, "name": "Fachschaft GHR", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.603099, 51.9731299 ] } },
+{ "type": "Feature", "properties": { "osm_id": 3439349470, "isced_level": null, "name": "Bewegungslabor OpenLab", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5982694, 51.9725643 ] } },
+{ "type": "Feature", "properties": { "osm_id": 13321708001, "isced_level": null, "name": "Fachschaft Wirtschaft MSB", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5953341, 51.9687297 ] } },
+{ "type": "Feature", "properties": { "osm_id": 4330713207, "isced_level": null, "name": "Institut für Wirtschaftsinformatik", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6032135, 51.9732605 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2461632961, "isced_level": null, "name": "Asta Sportreferat", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.6033612, 51.9734279 ] } },
+{ "type": "Feature", "properties": { "osm_id": 2269068153, "isced_level": null, "name": "Institut der Didaktik der Mathematik und der Informatik", "capacity": null }, "geometry": { "type": "Point", "coordinates": [ 7.5973963, 51.9695308 ] } }
+]
+}
